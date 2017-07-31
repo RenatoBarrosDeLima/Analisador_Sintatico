@@ -8,7 +8,42 @@ public class Sintatico {
 
     public static void main(String[] args) {
         lex.abreArquivoFonte();
+        listaDeExpressao();
+    }
+
+    public static void listaDeExpressao() {
         expressao();
+
+        char opc = '_';
+
+        lex.procuraAutomatoCerto();
+
+        if (lex.token.size() == 0) {
+            System.out.println("Lista de expressão Incompleta");
+            System.exit(0);
+        } else {
+
+            lex.token.remove(lex.token.size() - 1);
+            opc = lex.token.get(0);
+
+            while (opc == ';') {
+                System.out.print(lex.token);
+                System.out.println("   Correto - Símbolo Especial " + lex.getIndiceAtual());
+                esvaziaToken();
+                expressao();
+
+                lex.procuraAutomatoCerto();
+                lex.token.remove(lex.token.size() - 1);
+                if (lex.token.size() == 1 && lex.token.get(0) == ';') {
+                    opc = lex.token.get(0);
+                } else {
+                    lex.token.remove(lex.token.size() - 1);
+                    lex.setIndiceAtual(lex.getIndiceAtual() - lex.token.size());
+                    esvaziaToken();
+                }
+            }
+        }
+
     }
 
     public static void expressao() {
@@ -46,6 +81,7 @@ public class Sintatico {
             esvaziaToken();
             //System.out.println(lex.getIndiceAtual());
             relacao20();
+            _expressaoSimples();
         } else {
             System.out.println("Fim da Expressão");
             System.exit(0);
@@ -118,7 +154,7 @@ public class Sintatico {
 
     }
 
-    public static void expressaoSimples_22() {
+    public static void expressaoSimplesQuePodeRepetir() {
         char escolha = '_';
         lex.procuraAutomatoCerto();
 
@@ -196,16 +232,16 @@ public class Sintatico {
                 lex.setIndiceAtual(lex.getIndiceAtual() - lex.token.size());
                 esvaziaToken();
                 System.out.println(lex.getIndiceAtual());
-                expressaoSimples_22();
+                expressaoSimplesQuePodeRepetir();
             } else if (escolha != 'o' || escolha != '+' || escolha != '-') {
                 lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
                 esvaziaToken();
-                termo_23();
+                termoQuePodeRepetir();
             }
         } else {
-         lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
-         esvaziaToken();
-         }
+            lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
+            esvaziaToken();
+        }
 
     }
 
@@ -230,11 +266,10 @@ public class Sintatico {
                 System.exit(0);
             }
         }
-        termo_23();
-                
+        termoQuePodeRepetir();
     }
 
-    public static void termo_23() {
+    public static void termoQuePodeRepetir() {
         //fator_24();
 
         char escolha = '_';
@@ -310,11 +345,11 @@ public class Sintatico {
                 lex.setIndiceAtual(lex.getIndiceAtual() - lex.token.size());
                 esvaziaToken();
                 System.out.println(lex.getIndiceAtual());
-                termo_23();
+                termoQuePodeRepetir();
             } else if (escolha != 'd' && escolha != '*' && escolha != 'e') {
                 lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
                 esvaziaToken();
-                expressaoSimples_22();
+                expressaoSimplesQuePodeRepetir();
             }
         } else {
             lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
