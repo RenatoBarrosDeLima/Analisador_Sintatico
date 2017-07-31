@@ -8,7 +8,48 @@ public class Sintatico {
 
     public static void main(String[] args) {
         lex.abreArquivoFonte();
-        _termo();
+        expressao();
+    }
+
+    public static void expressao() {
+        _expressaoSimples();
+
+        char opc = '_';
+        lex.procuraAutomatoCerto();
+        if (lex.token.size() == 0) {
+            System.out.println("Fim da Expressão");
+            System.exit(0);
+        }
+        //obtendo o = | <> | < | <= | > | >=
+        //Convesões
+        // <> fica m
+        // <= p
+        // >= g
+        if (lex.token.get(lex.token.size() - 1) == 's') {
+            if ((lex.token.size() == 2) && (lex.token.get(0) == '=')) {
+                opc = '=';
+            } else if ((lex.token.size() == 3) && (lex.token.get(0) == '<') && (lex.token.get(1) == '>')) {
+                opc = 'm';
+            } else if ((lex.token.size() == 2) && (lex.token.get(0) == '<')) {
+                opc = '<';
+            } else if ((lex.token.size() == 3) && (lex.token.get(0) == '<') && (lex.token.get(1) == '=')) {
+                opc = 'p';
+            } else if ((lex.token.size() == 2) && (lex.token.get(0) == '>')) {
+                opc = '>';
+            } else if ((lex.token.size() == 3) && (lex.token.get(0) == '>') && (lex.token.get(1) == '=')) {
+                opc = 'g';
+            }
+        }
+        if ((opc == '=') || (opc == 'm') || (opc == '<') || (opc == 'p') || (opc == '>') || (opc == 'g')) {
+            lex.token.remove(lex.token.size() - 1);
+            lex.setIndiceAtual(lex.getIndiceAtual() - lex.token.size());
+            esvaziaToken();
+            //System.out.println(lex.getIndiceAtual());
+            relacao20();
+        } else {
+            System.out.println("Fim da Expressão");
+            System.exit(0);
+        }
     }
 
     public static void relacao20() {
@@ -18,21 +59,33 @@ public class Sintatico {
             System.out.println("Erro: era esperado uma Relação");
             System.exit(0);
         }
-        //Procurando um '='
+        //obtendo o = | <> | < | <= | > | >=
+        //Convesões
+        // <> fica m
+        // <= p
+        // >= g
         if (lex.token.get(lex.token.size() - 1) == 's') {
-            lex.token.remove(lex.token.size() - 1);
-
-            if (lex.token.size() == 1) {
-                opc = lex.token.get(0);
-                
+            if ((lex.token.size() == 2) && (lex.token.get(0) == '=')) {
+                opc = '=';
+            } else if ((lex.token.size() == 3) && (lex.token.get(0) == '<') && (lex.token.get(1) == '>')) {
+                opc = 'm';
+            } else if ((lex.token.size() == 2) && (lex.token.get(0) == '<')) {
+                opc = '<';
+            } else if ((lex.token.size() == 3) && (lex.token.get(0) == '<') && (lex.token.get(1) == '=')) {
+                opc = 'p';
+            } else if ((lex.token.size() == 2) && (lex.token.get(0) == '>')) {
+                opc = '>';
+            } else if ((lex.token.size() == 3) && (lex.token.get(0) == '>') && (lex.token.get(1) == '=')) {
+                opc = 'g';
             }
-
+        }
+        if ((opc == '=') || (opc == 'm') || (opc == '<') || (opc == 'p') || (opc == '>') || (opc == 'g')) {
+            lex.token.remove(lex.token.size() - 1);
             System.out.print(lex.token);
             System.out.println("   Correto - Relação " + lex.getIndiceAtual());
             esvaziaToken();
-        } //Chamada de Funcao
-        else {
-            System.out.println("Erro, Era esperado um Fator");
+        } else {
+            System.out.println("Relação Inválida");
             System.exit(0);
         }
     }
@@ -82,7 +135,6 @@ public class Sintatico {
             }
         }
         expressaoSimples_22();
-
     }
 
     public static void expressaoSimples_22() {
