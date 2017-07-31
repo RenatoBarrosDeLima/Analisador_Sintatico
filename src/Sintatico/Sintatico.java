@@ -221,10 +221,10 @@ public class Sintatico {
                 esvaziaToken();
                 termo_23();
             }
-        } /*else {
+        } else {
          lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
          esvaziaToken();
-         }*/
+         }
 
     }
 
@@ -250,6 +250,7 @@ public class Sintatico {
             }
         }
         termo_23();
+                
     }
 
     public static void termo_23() {
