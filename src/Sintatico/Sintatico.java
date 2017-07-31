@@ -50,6 +50,32 @@ public class Sintatico {
             System.out.println("Fim da Expressão");
             System.exit(0);
         }
+
+        lex.procuraAutomatoCerto();
+        //obtendo o '+' ou '-'
+        if (lex.token.get(lex.token.size() - 1) == 's') {
+            lex.token.remove(lex.token.size() - 1);
+            if ((lex.token.size() == 1) && (lex.token.get(0) == '+')) {
+                System.out.print(lex.token);
+                System.out.println("   Correto - Símbolo Especial " + lex.getIndiceAtual());
+                lex.token.remove(lex.token.size() - 1);
+                lex.setIndiceAtual(lex.getIndiceAtual() - lex.token.size());
+                esvaziaToken();
+                _expressaoSimples();
+            } else if ((lex.token.size() == 1) && (lex.token.get(0) == '-')) {
+                System.out.print(lex.token);
+                System.out.println("   Correto - Símbolo Especial " + lex.getIndiceAtual());
+                lex.token.remove(lex.token.size() - 1);
+                lex.setIndiceAtual(lex.getIndiceAtual() - lex.token.size());
+                esvaziaToken();
+                _expressaoSimples();
+            }
+        } else {
+            lex.token.remove(lex.token.size() - 1);
+            lex.setIndiceAtual(lex.getIndiceAtual() - lex.token.size());
+            esvaziaToken();
+        }
+
     }
 
     public static void relacao20() {
@@ -116,25 +142,28 @@ public class Sintatico {
         }
         _termo();
 
-        lex.procuraAutomatoCerto();
-        if (lex.token.size() == 0) {
-            System.out.println("Erro: Termo Incompleto");
-            System.exit(0);
-        }
-        //obtendo o(
-        if (lex.token.get(lex.token.size() - 1) == 's') {
-            lex.token.remove(lex.token.size() - 1);
-            if ((lex.token.size() == 1) && (lex.token.get(0) == '(')) {
-                System.out.print(lex.token);
-                System.out.println("   Correto - Símbolo Especial " + lex.getIndiceAtual());
-                esvaziaToken();
-                //lex.procuraAutomatoCerto();
-            } else {
-                System.out.println("Erro, era esperado '('");
-                System.exit(0);
-            }
-        }
-        expressaoSimples_22();
+        /*
+         lex.procuraAutomatoCerto();
+         if (lex.token.size() == 0) {
+         System.out.println("Erro: Termo Incompleto");
+         System.exit(0);
+         }
+         //obtendo o(
+         if (lex.token.get(lex.token.size() - 1) == 's') {
+         lex.token.remove(lex.token.size() - 1);
+         if ((lex.token.size() == 1) && (lex.token.get(0) == '(')) {
+         System.out.print(lex.token);
+         System.out.println("   Correto - Símbolo Especial " + lex.getIndiceAtual());
+         esvaziaToken();
+         //lex.procuraAutomatoCerto();
+         } else {
+         System.out.println("Erro, era espeddddddddddddddrado '('");
+         System.exit(0);
+         }
+         }
+        
+         expressaoSimples_22();
+         */
     }
 
     public static void expressaoSimples_22() {
@@ -222,9 +251,9 @@ public class Sintatico {
                 termo_23();
             }
         } else {
-         lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
-         esvaziaToken();
-         }
+            lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
+            esvaziaToken();
+        }
 
     }
 
@@ -250,7 +279,7 @@ public class Sintatico {
             }
         }
         termo_23();
-                
+
     }
 
     public static void termo_23() {
