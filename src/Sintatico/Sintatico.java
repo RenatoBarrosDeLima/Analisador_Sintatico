@@ -11,8 +11,32 @@ public class Sintatico {
         _termo();
     }
 
-    
-    
+    public static void relacao20() {
+        char opc = '_';
+        lex.procuraAutomatoCerto();
+        if (lex.token.size() == 0) {
+            System.out.println("Erro: era esperado uma Relação");
+            System.exit(0);
+        }
+        //Procurando um '='
+        if (lex.token.get(lex.token.size() - 1) == 's') {
+            lex.token.remove(lex.token.size() - 1);
+
+            if (lex.token.size() == 1) {
+                opc = lex.token.get(0);
+                
+            }
+
+            System.out.print(lex.token);
+            System.out.println("   Correto - Relação " + lex.getIndiceAtual());
+            esvaziaToken();
+        } //Chamada de Funcao
+        else {
+            System.out.println("Erro, Era esperado um Fator");
+            System.exit(0);
+        }
+    }
+
     public static void _expressaoSimples() {
         lex.procuraAutomatoCerto();
         if (lex.token.size() == 0) {
@@ -110,9 +134,9 @@ public class Sintatico {
 
         lex.procuraAutomatoCerto();
         if (lex.token.size() == 0) {
-               System.out.println("Fim da Expressão Simples");
-                System.exit(0);
-            }
+            System.out.println("Fim da Expressão Simples");
+            System.exit(0);
+        }
         escolha = '_';
 
         if ((lex.token.size() == 2) && (lex.token.get(0) == '(')) {
@@ -123,8 +147,8 @@ public class Sintatico {
             lex.procuraAutomatoCerto();
 
             if (lex.token.size() == 0) {
-               // System.out.println("Erro, Termo Incompleto");
-               // System.exit(0);
+                // System.out.println("Erro, Termo Incompleto");
+                // System.exit(0);
             }
 
             if ((lex.token.size() == 3) && (lex.token.get(0) == 'o') && (lex.token.get(1) == 'u')) {
