@@ -1,7 +1,6 @@
 package Sintatico;
 
 import Lexico.Lexico;
-import java.util.ArrayList;
 
 public class Sintatico {
 
@@ -9,9 +8,11 @@ public class Sintatico {
 
     public static void main(String[] args) {
         lex.abreArquivoFonte();
-        _expressaoSimples();
+        _termo();
     }
 
+    
+    
     public static void _expressaoSimples() {
         lex.procuraAutomatoCerto();
         if (lex.token.size() == 0) {
@@ -56,6 +57,7 @@ public class Sintatico {
                 System.exit(0);
             }
         }
+        expressaoSimples_22();
 
     }
 
@@ -68,7 +70,7 @@ public class Sintatico {
             System.exit(0);
         }
 
-        //obtendo o * | div | e
+        //obtendo o ou | + | -
         if ((lex.token.size() == 3) && (lex.token.get(0) == 'o') && (lex.token.get(1) == 'u')) {
             escolha = 'o';
         } else if ((lex.token.size() == 2) && (lex.token.get(0) == '+')) {
@@ -107,6 +109,10 @@ public class Sintatico {
         _termo();
 
         lex.procuraAutomatoCerto();
+        if (lex.token.size() == 0) {
+               System.out.println("Fim da Expressão Simples");
+                System.exit(0);
+            }
         escolha = '_';
 
         if ((lex.token.size() == 2) && (lex.token.get(0) == '(')) {
@@ -117,8 +123,8 @@ public class Sintatico {
             lex.procuraAutomatoCerto();
 
             if (lex.token.size() == 0) {
-                System.out.println("Erro, Termo Incompleto");
-                System.exit(0);
+               // System.out.println("Erro, Termo Incompleto");
+               // System.exit(0);
             }
 
             if ((lex.token.size() == 3) && (lex.token.get(0) == 'o') && (lex.token.get(1) == 'u')) {
@@ -137,6 +143,7 @@ public class Sintatico {
             } else if (escolha != 'o' || escolha != '+' || escolha != '-') {
                 lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
                 esvaziaToken();
+                termo_23();
             }
         } /*else {
          lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
@@ -167,7 +174,6 @@ public class Sintatico {
             }
         }
         termo_23();
-
     }
 
     public static void termo_23() {
@@ -250,11 +256,12 @@ public class Sintatico {
             } else if (escolha != 'd' && escolha != '*' && escolha != 'e') {
                 lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
                 esvaziaToken();
+                expressaoSimples_22();
             }
-        } /*else {
-         lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
-         esvaziaToken();
-         }*/
+        } else {
+            lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
+            esvaziaToken();
+        }
 
     }
 
