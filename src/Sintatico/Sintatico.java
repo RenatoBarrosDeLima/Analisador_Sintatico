@@ -9,7 +9,42 @@ public class Sintatico {
 
     public static void main(String[] args) {
         lex.abreArquivoFonte();
-        listaDeExpressao();
+        comandoImprima_18();
+    }
+
+    public static void comandoImprima_18() {
+        char opc = '_';
+        lex.procuraAutomatoCerto();
+
+        if (lex.token.size() == 0) {
+            System.out.println("Erro: Termo Incompleto");
+            System.exit(0);
+        }
+
+        //obtendo o ou | + | -
+        if ((lex.token.size() == 8) && (lex.token.get(0) == 'i') && (lex.token.get(1) == 'm') && (lex.token.get(2) == 'p') && (lex.token.get(3) == 'r') && (lex.token.get(4) == 'i') && (lex.token.get(5) == 'm') && (lex.token.get(6) == 'a')) {
+            opc = 'i';
+        }
+
+        if (opc == 'i') {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Nome IMPRIMA " + lex.getIndiceAtual());
+            esvaziaToken();
+
+            lex.procuraAutomatoCerto();
+            if (lex.token.size() == 2 && lex.token.get(0) == '(') {
+                //lex.token.remove(lex.token.size() - 1);
+                //System.out.print(lex.token);
+                //System.out.println("   Correto - Símbolo Especial " + lex.getIndiceAtual());
+                listaDeExpressao();
+                esvaziaToken();
+            } else {
+                System.out.println("Erro: era esperado um '('");
+                System.exit(0);
+            }
+            fator_24();
+        }
     }
 
     public static void listaDeExpressao() {
@@ -42,7 +77,7 @@ public class Sintatico {
                     lex.setIndiceAtual(lex.getIndiceAtual() - lex.token.size());
                     esvaziaToken();
                 }
-                System.out.println("------------------------------"+lex.token);
+                System.out.println("------------------------------" + lex.token);
                 opc = lex.token.get(0);
             }
         }
@@ -407,8 +442,13 @@ public class Sintatico {
             controleParenteses = controleParenteses + 1;
             expressao();
 
+        } else if ((lex.token.get(lex.token.size() - 1) == 's') && (lex.token.get(0) == ')') && lex.token.size() == 2) {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Identifjkljlkjljljicador " + lex.getIndiceAtual());
+            esvaziaToken();
         } else {
-            System.out.println("Erro, Era esperado um Fator " + lex.token.get(0));
+            System.out.println("Erro, Era esperado um Fator " + lex.token.size());
             System.exit(0);
         }
     }

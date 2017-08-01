@@ -1,0 +1,6 @@
++ a (*) b (+) c (div) d <> - x (e) c (-) d (div) fim1;
+a (*) b (+) c (div) d <> + x (e) c (-) d (div) fim2;
++ a (*) b (+) c (div) d <> - x (e) c (-) d (e) fim3
++ g (*) h (+) i (div) j <> - k (e) l (-) m (e) fim2;
++ abc (*) def (+) ghi (div) jik <> - lmn (e) opq (-) rst (e) fim3
+
