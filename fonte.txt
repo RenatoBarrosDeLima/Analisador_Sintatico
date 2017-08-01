@@ -1,1 +1,1 @@
-imprima (a (*) b (+) c (div) d <> + z (e) y (-) w (*) x)
+int := a (*) b (+) c (div) d <> + z (e) y (-) w (*) x

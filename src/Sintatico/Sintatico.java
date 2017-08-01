@@ -9,7 +9,49 @@ public class Sintatico {
 
     public static void main(String[] args) {
         lex.abreArquivoFonte();
-        comandoImprima_18();
+        atribuicao_13();
+    }
+
+    public static void atribuicao_13() {
+        if (identificador()) {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
+            esvaziaToken();
+
+            lex.procuraAutomatoCerto();
+            if (lex.token.size() == 3 && lex.token.get(0) == ':' && lex.token.get(1) == '=') {
+                lex.token.remove(lex.token.size() - 1);
+                System.out.print(lex.token);
+                System.out.println("   Correto - Símbolo Especial " + lex.getIndiceAtual());
+                esvaziaToken();
+                expressao();
+            } else {
+                System.out.println("Erro: era esperado um ':='");
+                System.exit(0);
+            }
+        }
+    }
+
+    public static void chamadaDeProcedimento_14() {
+        if (identificador()) {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
+            esvaziaToken();
+
+            lex.procuraAutomatoCerto();
+            if (lex.token.size() == 2 && lex.token.get(0) == '(') {
+                //lex.token.remove(lex.token.size() - 1);
+                //System.out.print(lex.token);
+                //System.out.println("   Correto - Símbolo Especial " + lex.getIndiceAtual());
+                listaDeExpressao();
+                esvaziaToken();
+                fator_24();
+            } else {
+                System.out.println("Fim da Chamada de Procedimento");
+            }
+        }
     }
 
     public static void comandoImprima_18() {
@@ -453,10 +495,19 @@ public class Sintatico {
         }
     }
 
+    public static boolean identificador() {
+        lex.procuraAutomatoCerto();
+        if ((lex.token.get(lex.token.size() - 1) == 'i') || (lex.token.get(lex.token.size() - 1) == 'p')) {
+            return true;
+        } else {
+            System.out.println("Era esperado um IDENTIFICADOR");
+            return false;
+        }
+    }
+
     public static void esvaziaToken() {
         while (!lex.token.isEmpty()) {
             lex.token.remove(0);
         }
     }
-
 }
