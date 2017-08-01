@@ -42,6 +42,8 @@ public class Sintatico {
                     lex.setIndiceAtual(lex.getIndiceAtual() - lex.token.size());
                     esvaziaToken();
                 }
+                System.out.println("------------------------------"+lex.token);
+                opc = lex.token.get(0);
             }
         }
 
@@ -222,6 +224,7 @@ public class Sintatico {
                     System.out.println("Fim da Expressão");
                     System.exit(0);
                 }
+
             }
         }
         escolha = '_';
@@ -234,8 +237,8 @@ public class Sintatico {
             lex.procuraAutomatoCerto();
 
             if (lex.token.size() == 0) {
-                // System.out.println("Erro, Termo Incompleto");
-                // System.exit(0);
+                System.out.println("Erro, Termo Incompleto");
+                System.exit(0);
             }
 
             if ((lex.token.size() == 3) && (lex.token.get(0) == 'o') && (lex.token.get(1) == 'u')) {
