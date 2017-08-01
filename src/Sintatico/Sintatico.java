@@ -5,6 +5,7 @@ import Lexico.Lexico;
 public class Sintatico {
 
     public static Lexico lex = new Lexico();
+    public static int controleParenteses = 0;
 
     public static void main(String[] args) {
         lex.abreArquivoFonte();
@@ -133,19 +134,19 @@ public class Sintatico {
             System.exit(0);
         }
         //obtendo o '+' ou '-'
-        if (lex.token.get(lex.token.size() - 1) == 's') {
+        if (lex.token.get(lex.token.size() - 1) == 's' && (lex.token.size() == 2) && (lex.token.get(0) == '+')) {
             lex.token.remove(lex.token.size() - 1);
-            if ((lex.token.size() == 1) && (lex.token.get(0) == '+')) {
-                System.out.print(lex.token);
-                System.out.println("   Correto - Símbolo Especial " + lex.getIndiceAtual());
-                esvaziaToken();
-                //lex.procuraAutomatoCerto();
-            } else if ((lex.token.size() == 1) && (lex.token.get(0) == '-')) {
-                System.out.print(lex.token);
-                System.out.println("   Correto - Símbolo Especial " + lex.getIndiceAtual());
-                esvaziaToken();
-                //lex.procuraAutomatoCerto();
-            }
+            System.out.print(lex.token);
+            System.out.println("   Correto - Símbolo Especial " + lex.getIndiceAtual());
+            esvaziaToken();
+            //lex.procuraAutomatoCerto();
+        } else if (lex.token.get(lex.token.size() - 1) == 's' && (lex.token.size() == 2) && (lex.token.get(0) == '-')) {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Símbolo Especial " + lex.getIndiceAtual());
+            esvaziaToken();
+            //lex.procuraAutomatoCerto();
+
         } else {
             lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
             esvaziaToken();
@@ -202,9 +203,26 @@ public class Sintatico {
         _termo();
 
         lex.procuraAutomatoCerto();
-        if (lex.token.size() == 0) {
+        if (lex.token.size() == 0 && controleParenteses == 0) {
             System.out.println("Fim da Expressão Simples");
             System.exit(0);
+        } else if (lex.token.size() == 0 && controleParenteses == 1) {
+            System.out.println("Era esperado um ')'");
+            System.exit(0);
+        } else if (lex.token.size() == 2 && controleParenteses == 1) {
+            lex.token.remove(lex.token.size() - 1);
+            controleParenteses = 0;
+            if (lex.token.get(0) == ')') {
+                System.out.print(lex.token);
+                System.out.println("   Correto - Símbolo Especial " + lex.getIndiceAtual());
+                esvaziaToken();
+
+                lex.procuraAutomatoCerto();
+                if (lex.token.size() == 0) {
+                    System.out.println("Fim da Expressão");
+                    System.exit(0);
+                }
+            }
         }
         escolha = '_';
 
@@ -371,14 +389,23 @@ public class Sintatico {
             System.out.print(lex.token);
             System.out.println("   Correto - Numero " + lex.getIndiceAtual());
             esvaziaToken();
-        } //Chamada de Funcao
+        } //Variavel
         else if ((lex.token.get(lex.token.size() - 1) == 'i') || (lex.token.get(lex.token.size() - 1) == 'p')) {
             lex.token.remove(lex.token.size() - 1);
             System.out.print(lex.token);
             System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
             esvaziaToken();
+        }//(expressao)
+        else if ((lex.token.get(lex.token.size() - 1) == 's') && (lex.token.get(0) == '(') && lex.token.size() == 2) {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
+            esvaziaToken();
+            controleParenteses = controleParenteses + 1;
+            expressao();
+
         } else {
-            System.out.println("Erro, Era esperado um Fator");
+            System.out.println("Erro, Era esperado um Fator " + lex.token.get(0));
             System.exit(0);
         }
     }
