@@ -17,7 +17,7 @@ public class Sintatico {
         lex.procuraAutomatoCerto();
 
         if (lex.token.size() == 0) {
-            System.out.println("Erro: Termo Incompleto");
+            System.out.println("1 Erro: Termo Incompleto");
             System.exit(0);
         }
 
@@ -304,7 +304,7 @@ public class Sintatico {
                 System.out.print(lex.token);
                 System.out.println("   Correto - Nome SE " + lex.getIndiceAtual());
                 esvaziaToken();
-                ///defTipo_3();
+                expressao_20();
                 break;
             case 'e':
                 lex.token.remove(lex.token.size() - 1);
@@ -381,11 +381,10 @@ public class Sintatico {
         lex.procuraAutomatoCerto();
 
         if (lex.token.size() == 0) {
-            System.out.println("Erro: Termo Incompleto");
+            System.out.println("2 Erro: Termo Incompleto");
             System.exit(0);
         }
 
-        //obtendo o ou | + | -
         if ((lex.token.size() == 2) && (lex.token.get(0) == '(')) {
             lex.token.remove(lex.token.size() - 1);
             System.out.print(lex.token);
@@ -407,6 +406,35 @@ public class Sintatico {
             System.out.println("Erro: era esperado um '('");
             System.exit(0);
         }
+        lex.procuraAutomatoCerto();
+        if ((lex.token.size() == 2) && (lex.token.get(0) == ';')) {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Simbolo Especial " + lex.getIndiceAtual());
+            esvaziaToken();
+        } else {
+            System.out.println("Erro: era esperado um ';'");
+            System.exit(0);
+        }
+
+        lex.procuraAutomatoCerto();
+        if ((lex.token.size() == 4) && (lex.token.get(0) == 'f') && (lex.token.get(1) == 'i') && (lex.token.get(2) == 'm')) {
+            opc = 'f';
+        } else {
+            opc = '_';
+        }
+        switch (opc) {
+            case '_':
+                lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
+                esvaziaToken();
+                comandoComposto_11();
+                break;
+            case 'f':
+                lex.token.remove(lex.token.size() - 1);
+                System.out.print(lex.token);
+                System.out.println("    FIM DO PROGRAMA");
+                System.exit(0);
+        }
 
     }
 
@@ -415,7 +443,7 @@ public class Sintatico {
         lex.procuraAutomatoCerto();
 
         if (lex.token.size() == 0) {
-            System.out.println("Erro: Termo Incompleto");
+            System.out.println("3 Erro: Termo Incompleto");
             System.exit(0);
         }
 
@@ -573,7 +601,7 @@ public class Sintatico {
     public static void expressaoSimples_22() {
         lex.procuraAutomatoCerto();
         if (lex.token.size() == 0) {
-            System.out.println("Erro: Termo Incompleto");
+            System.out.println("4 Erro: Termo Incompleto");
             System.exit(0);
         }
         //obtendo o '+' ou '-'
@@ -603,7 +631,7 @@ public class Sintatico {
         lex.procuraAutomatoCerto();
 
         if (lex.token.size() == 0) {
-            System.out.println("Erro: Termo Incompleto");
+            System.out.println("5 Erro: Termo Incompleto");
             System.exit(0);
         }
 
@@ -712,7 +740,7 @@ public class Sintatico {
 
         lex.procuraAutomatoCerto();
         if (lex.token.size() == 0) {
-            System.out.println("Erro: Termo Incompleto");
+            //System.out.println("6 Erro: Termo Incompleto");
             System.exit(0);
         }
         //obtendo o(
@@ -824,7 +852,7 @@ public class Sintatico {
 
         lex.procuraAutomatoCerto();
         if (lex.token.size() == 0) {
-            System.out.println("Erro: era esperado um Fator");
+            System.out.println("1 Erro: era esperado um Fator");
             System.exit(0);
         }
         //Numero
@@ -834,7 +862,19 @@ public class Sintatico {
             System.out.println("   Correto - Numero " + lex.getIndiceAtual());
             esvaziaToken();
         } //Variavel
-        else if ((lex.token.get(lex.token.size() - 1) == 'i') || (lex.token.get(lex.token.size() - 1) == 'p')) {
+        else if ((lex.token.size() == 3) && (lex.token.get(0) == 'd') && (lex.token.get(1) == 'o')) {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Nome DO " + lex.getIndiceAtual());
+            esvaziaToken();
+            comandoSemRotulo_12();
+        } else if ((lex.token.size() == 6) && (lex.token.get(0) == 'e') && (lex.token.get(1) == 'n') && (lex.token.get(2) == 't') && (lex.token.get(3) == 'a') && (lex.token.get(4) == 'o')) {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Nome ENTAOO " + lex.getIndiceAtual());
+            esvaziaToken();
+            comandoSemRotulo_12();
+        } else if ((lex.token.get(lex.token.size() - 1) == 'i') || (lex.token.get(lex.token.size() - 1) == 'p')) {
             lex.token.remove(lex.token.size() - 1);
             System.out.print(lex.token);
             System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
@@ -854,7 +894,7 @@ public class Sintatico {
             System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
             esvaziaToken();
         } else {
-            System.out.println("Erro, Era esperado um Fator " + lex.token.size());
+            System.out.println(" 2 Erro, Era esperado um Fator " + lex.token.size());
             System.exit(0);
         }
     }

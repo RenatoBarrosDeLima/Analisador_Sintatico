@@ -1,6 +1,7 @@
 programa primeiro;
 var a, b ,c : int;
     d, e ,f : double;
-inicio leia (a, b, c, d);
-leia (k,l,m,n);
+inicio 
+enquanto + a (*) b (ou) c (e) do leia (k,l,n);
+leia (re, na, to);
 fim
