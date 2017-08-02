@@ -1,6 +1,6 @@
 programa primeiro;
 var a, b ,c : int;
     d, e ,f : double;
-    g , h , i : char;
-inicio a := + a (*) b (+) c (div) d;
-			+ l (*) m (+) n (div) o;
+inicio leia (a, b, c, d);
+leia (k,l,m,n);
+fim
