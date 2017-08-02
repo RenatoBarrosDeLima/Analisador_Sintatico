@@ -1,1 +1,6 @@
-int := a (*) b (+) c (div) d <> + z (e) y (-) w (*) x
+programa primeiro;
+var a, b ,c : int;
+    d, e ,f : double;
+    g , h , i : char;
+inicio a := + a (*) b (+) c (div) d;
+			+ l (*) m (+) n (div) o;

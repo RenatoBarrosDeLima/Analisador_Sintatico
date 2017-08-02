@@ -9,11 +9,290 @@ public class Sintatico {
 
     public static void main(String[] args) {
         lex.abreArquivoFonte();
+        programa_1();
+    }
+
+    public static void programa_1() {
+        char opc = '_';
+        lex.procuraAutomatoCerto();
+
+        if (lex.token.size() == 0) {
+            System.out.println("Erro: Termo Incompleto");
+            System.exit(0);
+        }
+
+        if ((lex.token.size() == 9) && (lex.token.get(0) == 'p') && (lex.token.get(1) == 'r') && (lex.token.get(2) == 'o') && (lex.token.get(3) == 'g') && (lex.token.get(4) == 'r') && (lex.token.get(5) == 'a') && (lex.token.get(6) == 'm') && (lex.token.get(7) == 'a')) {
+            opc = 'p';
+        }
+
+        if (opc == 'p') {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Nome PROGRAMA " + lex.getIndiceAtual());
+            esvaziaToken();
+            if (identificador_29()) {
+                lex.token.remove(lex.token.size() - 1);
+                System.out.print(lex.token);
+                System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
+                esvaziaToken();
+
+                lex.procuraAutomatoCerto();
+                if (lex.token.size() == 2 && lex.token.get(0) == ';') {
+                    lex.token.remove(lex.token.size() - 1);
+                    System.out.print(lex.token);
+                    System.out.println("   Correto - Simbolo Especial " + lex.getIndiceAtual());
+                    esvaziaToken();
+                } else {
+                    System.out.println("Erro era espera----------do um ';' ");
+                    System.exit(0);
+                }
+                bloco_2();
+            }
+        } else {
+            System.out.println("Erro era esperado o nome PROGRAMA ");
+            System.exit(0);
+        }
+    }
+
+    public static void bloco_2() {
+        char opc = '_';
+        lex.procuraAutomatoCerto();
+
+        if (lex.token.size() == 0) {
+            System.out.println("Erro: Bloco Incompleto");
+            System.exit(0);
+        }
+
+        if ((lex.token.size() == 5) && (lex.token.get(0) == 't') && (lex.token.get(1) == 'i') && (lex.token.get(2) == 'p') && (lex.token.get(3) == 'o')) {
+            opc = 't';
+        } else if ((lex.token.size() == 4) && (lex.token.get(0) == 'v') && (lex.token.get(1) == 'a') && (lex.token.get(2) == 'r')) {
+            opc = 'v';
+        } else if ((lex.token.size() == 7) && (lex.token.get(0) == 'i') && (lex.token.get(1) == 'n') && (lex.token.get(2) == 'i') && (lex.token.get(3) == 'c') && (lex.token.get(4) == 'i') && (lex.token.get(5) == 'o')) {
+            opc = 'i';
+        } else {
+            lex.token.remove(lex.token.get(lex.token.size() - 1));
+            System.out.println("Erro: '" + lex.token + "'  é um nome Identificador");
+            System.exit(0);
+        }
+
+        switch (opc) {
+            case 't':
+                lex.token.remove(lex.token.size() - 1);
+                System.out.print(lex.token);
+                System.out.println("   Correto - Nome TIPO " + lex.getIndiceAtual());
+                esvaziaToken();
+                defTipo_3();
+                break;
+            case 'v':
+                lex.token.remove(lex.token.size() - 1);
+                System.out.print(lex.token);
+                System.out.println("   Correto - Nome VAR " + lex.getIndiceAtual());
+                esvaziaToken();
+                defVar_5();
+                break;
+            case 'i':
+                lex.token.remove(lex.token.size() - 1);
+                System.out.print(lex.token);
+                System.out.println("   Correto - Nome INICIO " + lex.getIndiceAtual());
+                esvaziaToken();
+                comandoComposto_11();
+                break;
+            default:
+                return;
+        }
+    }
+
+    public static void defTipo_3() {
+        char opc = '_';
+        if (identificador_29()) {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
+            esvaziaToken();
+
+            lex.procuraAutomatoCerto();
+            if (lex.token.size() == 2 && lex.token.get(0) == '=') {
+                lex.token.remove(lex.token.size() - 1);
+                System.out.print(lex.token);
+                System.out.println("   Correto - Simbolo Especial " + lex.getIndiceAtual());
+                esvaziaToken();
+            } else {
+                System.out.println("Erro era esperado um '=' ");
+                System.exit(0);
+            }
+            if (tipo_4()) {
+                lex.token.remove(lex.token.size() - 1);
+                System.out.print(lex.token);
+                System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
+                esvaziaToken();
+
+                lex.procuraAutomatoCerto();
+                if (lex.token.size() == 2 && lex.token.get(0) == ';') {
+                    lex.token.remove(lex.token.size() - 1);
+                    System.out.print(lex.token);
+                    System.out.println("   Correto - Simbolo Especial " + lex.getIndiceAtual());
+                    esvaziaToken();
+                } else {
+                    System.out.println("Erro era esperado um ';' ");
+                    System.exit(0);
+                }
+            }
+        }
+        lex.procuraAutomatoCerto();
+        if ((lex.token.size() == 7) && (lex.token.get(0) == 'i') && (lex.token.get(1) == 'n') && (lex.token.get(2) == 'i') && (lex.token.get(3) == 'c') && (lex.token.get(4) == 'i') && (lex.token.get(5) == 'o')) {
+            opc = 'i';
+        } else {
+            opc = '_';
+        }
+        if (opc != 'i') {
+            lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
+            esvaziaToken();
+            defTipo_3();
+        } else {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Nome INICIO " + lex.getIndiceAtual());
+            esvaziaToken();
+            comandoComposto_11();
+        }
+    }
+
+    public static boolean tipo_4() {
+        lex.procuraAutomatoCerto();
+        if ((lex.token.get(lex.token.size() - 1) == 'i') || (lex.token.get(lex.token.size() - 1) == 'p')) {
+            return true;
+        } else {
+            System.out.println("Era esperado um IDENTIFICADOR");
+            return false;
+        }
+    }
+
+    public static void defVar_5() {
+        char opc = '_';
+        listaDeIdentificador_6();
+
+        lex.procuraAutomatoCerto();
+        if (lex.token.size() == 2 && lex.token.get(0) == ':') {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Simbolo Especial " + lex.getIndiceAtual());
+            esvaziaToken();
+        } else {
+            System.out.println("Erro era esperado um ':' ");
+            System.exit(0);
+        }
+        if (tipo_4()) {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
+            esvaziaToken();
+
+            lex.procuraAutomatoCerto();
+            if (lex.token.size() == 2 && lex.token.get(0) == ';') {
+                lex.token.remove(lex.token.size() - 1);
+                System.out.print(lex.token);
+                System.out.println("   Correto - Simbolo Especial " + lex.getIndiceAtual());
+                esvaziaToken();
+            } else {
+                System.out.println("Erro era esperado um ';' ");
+                System.exit(0);
+            }
+        }
+        lex.procuraAutomatoCerto();
+        if ((lex.token.size() == 7) && (lex.token.get(0) == 'i') && (lex.token.get(1) == 'n') && (lex.token.get(2) == 'i') && (lex.token.get(3) == 'c') && (lex.token.get(4) == 'i') && (lex.token.get(5) == 'o')) {
+            opc = 'i';
+        } else {
+            opc = '_';
+        }
+        if (opc != 'i') {
+            lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
+            esvaziaToken();
+            defVar_5();
+        } else {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Nome INICIO " + lex.getIndiceAtual());
+            esvaziaToken();
+            comandoComposto_11();
+        }
+    }
+
+    public static void comandoComposto_11() {
+
         atribuicao_13();
+        /*
+         char opc = '_';
+         listaDeIdentificador_6();
+
+         lex.procuraAutomatoCerto();
+         if (lex.token.size() == 2 && lex.token.get(0) == ':') {
+         lex.token.remove(lex.token.size() - 1);
+         System.out.print(lex.token);
+         System.out.println("   Correto - Simbolo Especial " + lex.getIndiceAtual());
+         esvaziaToken();
+         } else {
+         System.out.println("Erro era esperado um ':' ");
+         System.exit(0);
+         }
+         if (tipo_4()) {
+         lex.token.remove(lex.token.size() - 1);
+         System.out.print(lex.token);
+         System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
+         esvaziaToken();
+
+         lex.procuraAutomatoCerto();
+         if (lex.token.size() == 2 && lex.token.get(0) == ';') {
+         lex.token.remove(lex.token.size() - 1);
+         System.out.print(lex.token);
+         System.out.println("   Correto - Simbolo Especial " + lex.getIndiceAtual());
+         esvaziaToken();
+         } else {
+         System.out.println("Erro era esperado um ';' ");
+         System.exit(0);
+         }
+         }
+         lex.procuraAutomatoCerto();
+         if ((lex.token.size() == 7) && (lex.token.get(0) == 'i') && (lex.token.get(1) == 'n') && (lex.token.get(2) == 'i') && (lex.token.get(3) == 'c') && (lex.token.get(4) == 'i') && (lex.token.get(5) == 'o')) {
+         opc = 'i';
+         } else {
+         opc = '_';
+         }
+         if (opc != 'i') {
+         lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
+         esvaziaToken();
+         defVar_5();
+         } else {
+         //lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
+         //esvaziaToken();
+         //Chamar Comando Composto_11;
+         }
+         */
+    }
+
+    public static void listaDeIdentificador_6() {
+        if (identificador_29()) {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
+            esvaziaToken();
+
+            lex.procuraAutomatoCerto();
+            if (lex.token.size() == 2 && lex.token.get(0) == ',') {
+                lex.token.remove(lex.token.size() - 1);
+                System.out.print(lex.token);
+                System.out.println("   Correto - Simbolo Especial " + lex.getIndiceAtual());
+                esvaziaToken();
+
+                listaDeIdentificador_6();
+            } else {
+                lex.setIndiceAtual(lex.getIndiceAtual() - (lex.token.size() - 1));
+                esvaziaToken();
+            }
+        }
     }
 
     public static void atribuicao_13() {
-        if (identificador()) {
+        if (identificador_29()) {
             lex.token.remove(lex.token.size() - 1);
             System.out.print(lex.token);
             System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
@@ -34,7 +313,7 @@ public class Sintatico {
     }
 
     public static void chamadaDeProcedimento_14() {
-        if (identificador()) {
+        if (identificador_29()) {
             lex.token.remove(lex.token.size() - 1);
             System.out.print(lex.token);
             System.out.println("   Correto - Identificador " + lex.getIndiceAtual());
@@ -132,7 +411,7 @@ public class Sintatico {
         char opc = '_';
         lex.procuraAutomatoCerto();
         if (lex.token.size() == 0) {
-            System.out.println("Fim da Expressão");
+            System.out.println("Fim da Expressão 1");
             System.exit(0);
         }
         //obtendo o = | <> | < | <= | > | >=
@@ -153,6 +432,8 @@ public class Sintatico {
                 opc = '>';
             } else if ((lex.token.size() == 3) && (lex.token.get(0) == '>') && (lex.token.get(1) == '=')) {
                 opc = 'g';
+            } else if ((lex.token.size() == 2) && (lex.token.get(0) == ';')) {
+                opc = ';';
             }
         }
         if ((opc == '=') || (opc == 'm') || (opc == '<') || (opc == 'p') || (opc == '>') || (opc == 'g')) {
@@ -162,9 +443,15 @@ public class Sintatico {
             //System.out.println(lex.getIndiceAtual());
             relacao20();
             _expressaoSimples();
+        } else if (opc == ';') {
+            lex.token.remove(lex.token.size() - 1);
+            System.out.print(lex.token);
+            System.out.println("   Correto - ';' " + lex.getIndiceAtual());
+            esvaziaToken();
+            expressao();
         } else {
-            System.out.println("Fim da Expressão");
-            System.exit(0);
+            System.out.println("Fim da Expressão 2");
+            //System.exit(0);
         }
     }
 
@@ -495,7 +782,7 @@ public class Sintatico {
         }
     }
 
-    public static boolean identificador() {
+    public static boolean identificador_29() {
         lex.procuraAutomatoCerto();
         if ((lex.token.get(lex.token.size() - 1) == 'i') || (lex.token.get(lex.token.size() - 1) == 'p')) {
             return true;
